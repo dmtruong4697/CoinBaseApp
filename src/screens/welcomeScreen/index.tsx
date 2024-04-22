@@ -19,7 +19,7 @@ const WelcomeScreen: React.FC<IProps>  = () => {
                 title='Get started'
                 type='solid'
                 onPress={() => {
-
+                    navigation.navigate('SignUp');
                 }}
             />
 

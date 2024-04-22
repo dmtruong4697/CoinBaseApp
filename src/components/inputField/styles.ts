@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     viewContainer: {
         width: '100%',
         flexDirection: 'column',
-        marginBottom: 20,
+        marginBottom: 16,
     },
 
     inputContainer: {

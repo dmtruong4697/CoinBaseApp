@@ -9,7 +9,7 @@ import InputField from '../../components/inputField';
 import { Controller, useForm } from 'react-hook-form';
 interface IProps {}
 
-const SignInScreen: React.FC<IProps>  = () => {
+const ValidateCodeScreen: React.FC<IProps>  = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
@@ -32,66 +32,45 @@ const SignInScreen: React.FC<IProps>  = () => {
             <TouchableOpacity
                 onPress={() => {navigation.goBack()}}
             >
-                <Image style={styles.btnCancel} source={require('../../../assets/icons/header/cancel.png')}/>
+                <Image style={styles.btnCancel} source={require('../../../assets/icons/header/back.png')}/>
             </TouchableOpacity>
         </View>
 
         <View style={styles.viewFormContainer}>
-            <Text style={styles.txtTitle}>Sign in to Coinbase</Text>
+            <Text style={styles.txtTitle}>Enter the 7-digit code we texted to +xx xxxx xx88</Text>
+            <Text style={styles.txtDescription}>This extra step shows it’s really you trying to sign in</Text>
             <Controller
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
                 <InputField
-                    title='Email'
-                    inputMode='email'
+                    inputMode='numeric'
                     value={value}
                     onChangeText={value => onChange(value)}
                     onBlur={onBlur}
-                    // isPassword
                 />
                 )}
-                name='email'
+                name='code'
                 rules={{
                     required: true,
                 }}
             />
-            {errors.email && <Text>Email is required.</Text>}
+            {errors.code && <Text>Email is required.</Text>}
+        </View>
 
-            <Controller
-                control={control}
-                render={({field: {onChange, onBlur, value}}) => (
-                <InputField
-                    title='Password'
-                    inputMode='text'
-                    value={value}
-                    onChangeText={value => onChange(value)}
-                    onBlur={onBlur}
-                    isPassword
-                />
-                )}
-                name='password'
-                rules={{
-                    required: true,
-                }}
-            />
-            {errors.password && <Text>Password is required.</Text>}
-
-            <View style={styles.viewOptionGroup}>
-                <TouchableOpacity>
-                    <Text style={styles.txtOption}>Forgot password</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity>
-                    <Text style={styles.txtOption}>Privacy policy</Text>
-                </TouchableOpacity>
-            </View>
-
+        <View style={styles.viewButtonGroup}>
             <Button
-                title='Sign In'
+                title='Submit'
                 type='default'
-                // onPress={handleSubmit(onSubmit)}
                 onPress={() => {
-                    navigation.navigate('ValidateCode');
+                    // navigation.navigate('SignIn');
+                }}
+            />
+            
+            <Button
+                title='I need help'
+                type='solid'
+                onPress={() => {
+
                 }}
             />
         </View>
@@ -99,4 +78,4 @@ const SignInScreen: React.FC<IProps>  = () => {
   )
 }
 
-export default SignInScreen    
+export default ValidateCodeScreen    

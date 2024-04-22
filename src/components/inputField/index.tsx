@@ -4,7 +4,7 @@ import { styles } from './styles';
 import { colors } from '../../constants/colors';
 
 interface IProps {
-  title: string;
+  title?: string;
   containerStyle?: ViewStyle;
   onBlur?: ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void) | undefined;
   onChangeText?: ((text: string) => void) | undefined;
@@ -20,7 +20,7 @@ const InputField: React.FC<IProps> = ({title, onBlur, onChangeText, containerSty
 
   return (
     <View style={styles.viewContainer}>
-      <Text style={[styles.txtTitle, {color: (isFocus)? colors.PrimaryColor: '#111111',}]}>{title}</Text>
+      {(title) && <Text style={[styles.txtTitle, {color: (isFocus)? colors.PrimaryColor: '#111111',}]}>{title}</Text>}
       <View style={[styles.inputContainer, {
         borderColor: (isFocus)? colors.PrimaryColor: '#CFCFCF',
         borderWidth: (isFocus)? 2: 1,
