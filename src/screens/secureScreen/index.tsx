@@ -41,7 +41,7 @@ const SecureScreen: React.FC<IProps>  = () => {
                 title='Continue'
                 type='default'
                 onPress={() => {
-                    // navigation.navigate('IntroSecure');
+                    navigation.navigate('HomeNavigator');
                 }}
             />
         </View>

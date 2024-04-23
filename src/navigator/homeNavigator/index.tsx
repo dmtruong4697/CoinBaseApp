@@ -42,10 +42,10 @@ const HomeNavigator = () => {
                         fontWeight: '600',
                     },
                     tabBarIcon: ({focused}) => (
-                        (focused)?
-                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icon/homeScreen/home-active.png')}/>
+                        (!focused)?
+                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icons/bottomTab/home.png')}/>
                         :
-                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icon/homeScreen/home-inactive.png')}/>
+                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icons/bottomTab/home-active.png')}/>
                     ),
                 }}
             />
@@ -61,10 +61,10 @@ const HomeNavigator = () => {
                         fontWeight: '600',
                     },
                     tabBarIcon: ({focused}) => (
-                        (focused)?
-                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icon/homeScreen/wallet-active.png')}/>
+                        (!focused)?
+                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icons/bottomTab/pie-chart.png')}/>
                         :
-                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icon/homeScreen/wallet-inactive.png')}/>
+                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icons/bottomTab/pie-chart-active.png')}/>
                     ),
                 }}
             />
@@ -76,7 +76,9 @@ const HomeNavigator = () => {
                     headerShown: false,
                     tabBarLabel: "",
                     tabBarIcon: () => (
-                        <Image style={styles.imgAddIcon} source={require('../../../assets/icon/homeScreen/add-transaction.png')}/>
+                        <View style={styles.viewIconAdd}>
+                        <Image style={styles.imgAddIcon} source={require('../../../assets/icons/bottomTab/swap.png')}/>
+                        </View>
                     ),
                     
                 }}
@@ -93,10 +95,10 @@ const HomeNavigator = () => {
                         fontWeight: '600',
                     },
                     tabBarIcon: ({focused}) => (
-                        (focused)?
-                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icon/homeScreen/money-active.png')}/>
+                        (!focused)?
+                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icons/bottomTab/chart.png')}/>
                         :
-                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icon/homeScreen/money-inactive.png')}/>
+                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icons/bottomTab/chart-active.png')}/>
                     ),
                 }}
             />
@@ -112,10 +114,10 @@ const HomeNavigator = () => {
                         fontWeight: '600',
                     },
                     tabBarIcon: ({focused}) => (
-                        (focused)?
-                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icon/homeScreen/menu-active.png')}/>
+                        (!focused)?
+                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icons/bottomTab/user.png')}/>
                         :
-                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icon/homeScreen/menu-inactive.png')}/>
+                        <Image style={styles.imgTabBarIcon} source={require('../../../assets/icons/bottomTab/user-active.png')}/>
                     ),
                 }}
             />
