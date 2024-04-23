@@ -11,9 +11,10 @@ interface IProps {
   value?: string;
   inputMode?: InputModeOptions;
   isPassword?: boolean;
+  placeHolder?: string;
 }
 
-const InputField: React.FC<IProps> = ({title, onBlur, onChangeText, containerStyle, value, inputMode, isPassword}) => {
+const InputField: React.FC<IProps> = ({title, onBlur, onChangeText, containerStyle, value, inputMode, isPassword, placeHolder}) => {
 
   const [isFocus, setIsFocus] = useState(false);
   const [isShow, setIsShow] = useState(true);
@@ -24,7 +25,7 @@ const InputField: React.FC<IProps> = ({title, onBlur, onChangeText, containerSty
       <View style={[styles.inputContainer, {
         borderColor: (isFocus)? colors.PrimaryColor: '#CFCFCF',
         borderWidth: (isFocus)? 2: 1,
-      }]}>
+      }, containerStyle]}>
         <TextInput
           secureTextEntry={(isPassword)? isShow:false}
           style={[styles.inputField, {color: (isFocus)? '#707070':'#707070',}]}
@@ -33,6 +34,7 @@ const InputField: React.FC<IProps> = ({title, onBlur, onChangeText, containerSty
           // value={value}
           inputMode={inputMode}
           onFocus={() => {setIsFocus(true)}}
+          placeholder={placeHolder}
         />
 
         {

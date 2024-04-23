@@ -8,6 +8,9 @@ import VerifyEmailScreen from "../../screens/verifyEmailScreen";
 import IntroSecureScreen from "../../screens/introSecureScreen";
 import SecureScreen from "../../screens/secureScreen";
 import HomeNavigator from "../homeNavigator";
+import TwoStepScreen from "../../screens/twoStepScreen";
+import AuthenCodeScreen from "../../screens/authenCodeScreen";
+import CitizenshipScreen from "../../screens/citizenshipScreen";
 
 
 export type RootStackParamList = {
@@ -20,6 +23,9 @@ export type RootStackParamList = {
     VerifyEmail: {};
     IntroSecure: {};
     Secure: {};
+    TwoStep: {};
+    AuthenCode: {};
+    Citizenship: {};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -87,6 +93,30 @@ const MainNavigator = () => {
         <Stack.Screen
             name="HomeNavigator"
             component={HomeNavigator}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="TwoStep"
+            component={TwoStepScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="AuthenCode"
+            component={AuthenCodeScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="Citizenship"
+            component={CitizenshipScreen}
             options={{
                 headerShown: false,
             }}
