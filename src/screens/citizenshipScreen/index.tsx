@@ -11,6 +11,8 @@ import { Controller, useForm } from 'react-hook-form';
 import StepIndicator from '../../components/stepIndicator';
 import { colors } from '../../constants/colors';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { CountryCodeData } from '../../data/countryCode';
+import CountryCodeCard from '../../components/countryCodeCard';
 
 interface IProps {}
 
@@ -50,7 +52,7 @@ const CitizenshipScreen: React.FC<IProps>  = () => {
                         style={styles.inputContainer}
                         onPress={() => refRBSheet.current.open()}
                     >
-                        <Text style={styles.txtCode}>{country}</Text>
+                        <Text style={styles.txtCountry}>{country}</Text>
                         <Image style={styles.imgDown} source={require('../../../assets/icons/twoStepScreen/down.png')}/>
                     </TouchableOpacity>
                 </View>
@@ -59,11 +61,15 @@ const CitizenshipScreen: React.FC<IProps>  = () => {
         </View>
 
         <View style={styles.viewButtonGroup}>
+            <View style={styles.viewWarning}>
+                <Image style={styles.imgLock} source={require('../../../assets/icons/citizenshipScreen/lock.png')}/>
+                <Text style={styles.txtWarning}>This info is used only for identity verification and is transmitted securely ysing 128-bit encryption</Text>
+            </View>
             <Button
                 title='Continue'
                 type='default'
                 onPress={() => {
-                    navigation.navigate('AuthenCode');
+                    navigation.navigate('VerifyID');
                 }}
             />
         </View>
@@ -72,7 +78,7 @@ const CitizenshipScreen: React.FC<IProps>  = () => {
       <RBSheet 
         ref={refRBSheet} 
         draggable={true} 
-        dragOnContent 
+        // dragOnContent 
         useNativeDriver={false}
         customStyles={{
             container: {
@@ -85,9 +91,25 @@ const CitizenshipScreen: React.FC<IProps>  = () => {
             }
         }}
       >
-            <View style={{
-            }}>
-
+            <View style={{}}>
+                <FlatList
+                    data={CountryCodeData}
+                    keyExtractor={item => item.id}
+                    scrollEnabled={true}
+                    renderItem={({item}) => (
+                        <CountryCodeCard
+                            id={item.id}
+                            code={item.code}
+                            name={item.name}
+                            iconUrl={item.iconUrl}
+                            onPress={() => {
+                                setCountry(item.name);
+                                refRBSheet.current.close();
+                            }}
+                        />
+                    )}
+                    contentContainerStyle={{gap: 10, paddingBottom: 50,}}
+                />
             </View>
       </RBSheet>
 

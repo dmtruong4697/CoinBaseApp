@@ -11,6 +11,8 @@ import { Controller, useForm } from 'react-hook-form';
 import StepIndicator from '../../components/stepIndicator';
 import { colors } from '../../constants/colors';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { CountryCodeData } from '../../data/countryCode';
+import CountryCodeCard from '../../components/countryCodeCard';
 
 interface IProps {}
 
@@ -30,7 +32,7 @@ const TwoStepScreen: React.FC<IProps>  = () => {
         console.log(getValues());
     };
 
-    const [countryCode, setCountryCode] = useState('+1');
+    const [countryCode, setCountryCode] = useState('1');
 
     const refRBSheet = useRef();
   
@@ -62,7 +64,7 @@ const TwoStepScreen: React.FC<IProps>  = () => {
                         style={styles.inputContainer}
                         onPress={() => refRBSheet.current.open()}
                     >
-                        <Text style={styles.txtCode}>{countryCode}</Text>
+                        <Text style={styles.txtCode}>+{countryCode}</Text>
                         <Image style={styles.imgDown} source={require('../../../assets/icons/twoStepScreen/down.png')}/>
                     </TouchableOpacity>
                 </View>
@@ -107,7 +109,7 @@ const TwoStepScreen: React.FC<IProps>  = () => {
       <RBSheet 
         ref={refRBSheet} 
         draggable={true} 
-        dragOnContent 
+        // dragOnContent 
         useNativeDriver={false}
         customStyles={{
             container: {
@@ -120,9 +122,25 @@ const TwoStepScreen: React.FC<IProps>  = () => {
             }
         }}
       >
-            <View style={{
-            }}>
-
+            <View style={{}}>
+                <FlatList
+                    data={CountryCodeData}
+                    keyExtractor={item => item.id}
+                    scrollEnabled={true}
+                    renderItem={({item}) => (
+                        <CountryCodeCard
+                            id={item.id}
+                            code={item.code}
+                            name={item.name}
+                            iconUrl={item.iconUrl}
+                            onPress={() => {
+                                setCountryCode(item.code);
+                                refRBSheet.current.close();
+                            }}
+                        />
+                    )}
+                    contentContainerStyle={{gap: 10, paddingBottom: 50,}}
+                />
             </View>
       </RBSheet>
 

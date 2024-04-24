@@ -4,7 +4,7 @@ import { colors } from "../../constants/colors";
 export const styles = StyleSheet.create({
     viewContainer: {
         flex: 1,
-        // height: '200%',
+        height: '200%',
         backgroundColor: '#FFFFFF',
         padding: 15,
         alignItems: 'center',
@@ -36,17 +36,11 @@ export const styles = StyleSheet.create({
     },
 
     txtDescription: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: '400',
         color: '#707070',
         marginBottom: 20,
-    },
-
-    txtCountry: {
-        fontSize: 18,
-        fontWeight: '400',
-        color: '#707070',
-        flex: 1,
+        // textAlign: 'center',
     },
 
     viewFormContainer: {
@@ -54,64 +48,27 @@ export const styles = StyleSheet.create({
         width: '100%',
     },
 
-    viewInput: {
-        width: '100%',
-        flexDirection: 'row',
-    },
-
     viewButtonGroup: {
         width: '100%',
-        flexDirection: 'column',
         position: 'absolute',
         bottom: 0,
-        marginBottom: 30,
-    },
-
-    inputContainer: {
-        width: '100%',
-        height: 58,
-        borderRadius: 4,
-        borderWidth: 1,
-        flexDirection: 'row',
-        borderColor: '#CFCFCF',
-
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-    },
-
-    inputField: {
-        flex: 1,
-        padding: 10,
-
-        fontSize: 16,
-        fontWeight: '400',
-        color: '#707070',
-    },
-
-    txtInputTitle: {
-        fontSize: 16,
-        fontWeight: '400',
-        color: '#111111',
-        marginBottom: 10,
-    },
-
-    viewInputContainer: {
-        width: '100%',
+        marginBottom: 25,
         flexDirection: 'column',
-        marginBottom: 16,
+        gap: 16,
     },
 
-    imgDown: {
-        width: 23,
-        height: 23,
+    imgIDCard: {
+        width: 216,
+        height: 196,
+        marginVertical: 30,
+        marginTop: 25,
     },
 
     viewWarning: {
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: 15,
+        paddingVertical: 8,
     },
 
     imgLock: {

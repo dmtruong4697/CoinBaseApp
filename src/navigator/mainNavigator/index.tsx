@@ -11,6 +11,12 @@ import HomeNavigator from "../homeNavigator";
 import TwoStepScreen from "../../screens/twoStepScreen";
 import AuthenCodeScreen from "../../screens/authenCodeScreen";
 import CitizenshipScreen from "../../screens/citizenshipScreen";
+import VerifyIDScreen from "../../screens/verifyIDScreen";
+import VerifyPhotoIDScreen from "../../screens/verifyPhotoIDScreen";
+import SelectIDTypeScreen from "../../screens/selectIDTypeScreen";
+import CameraScreen from "../../screens/cameraScreen";
+import { PhotoFile } from "react-native-vision-camera";
+import IDPhotoScreen from "../../screens/idPhotoScreen";
 
 
 export type RootStackParamList = {
@@ -26,6 +32,13 @@ export type RootStackParamList = {
     TwoStep: {};
     AuthenCode: {};
     Citizenship: {};
+    VerifyID: {};
+    VerifyPhotoID: {};
+    SelectIDType: {};
+    Camera: {};
+    IDPhoto: {
+        photo: PhotoFile,
+    },
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -117,6 +130,46 @@ const MainNavigator = () => {
         <Stack.Screen
             name="Citizenship"
             component={CitizenshipScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="VerifyID"
+            component={VerifyIDScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="VerifyPhotoID"
+            component={VerifyPhotoIDScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="SelectIDType"
+            component={SelectIDTypeScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="Camera"
+            component={CameraScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="IDPhoto"
+            component={IDPhotoScreen}
             options={{
                 headerShown: false,
             }}

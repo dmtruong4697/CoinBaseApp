@@ -42,22 +42,11 @@ export const styles = StyleSheet.create({
         marginBottom: 20,
     },
 
-    txtCountry: {
-        fontSize: 18,
-        fontWeight: '400',
-        color: '#707070',
-        flex: 1,
-    },
-
     viewFormContainer: {
         flexDirection: 'column',
         width: '100%',
     },
 
-    viewInput: {
-        width: '100%',
-        flexDirection: 'row',
-    },
 
     viewButtonGroup: {
         width: '100%',
@@ -65,41 +54,6 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         marginBottom: 30,
-    },
-
-    inputContainer: {
-        width: '100%',
-        height: 58,
-        borderRadius: 4,
-        borderWidth: 1,
-        flexDirection: 'row',
-        borderColor: '#CFCFCF',
-
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-    },
-
-    inputField: {
-        flex: 1,
-        padding: 10,
-
-        fontSize: 16,
-        fontWeight: '400',
-        color: '#707070',
-    },
-
-    txtInputTitle: {
-        fontSize: 16,
-        fontWeight: '400',
-        color: '#111111',
-        marginBottom: 10,
-    },
-
-    viewInputContainer: {
-        width: '100%',
-        flexDirection: 'column',
-        marginBottom: 16,
     },
 
     imgDown: {
@@ -114,17 +68,11 @@ export const styles = StyleSheet.create({
         paddingVertical: 15,
     },
 
-    imgLock: {
-        width: 19,
-        height: 19,
-    },
-
     txtWarning: {
         fontSize: 15,
         fontWeight: '400',
         color: '#707070',
         lineHeight: 20,
-        marginHorizontal: 12,
     },
 
 })
