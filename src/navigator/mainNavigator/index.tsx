@@ -18,6 +18,8 @@ import CameraScreen from "../../screens/cameraScreen";
 import { PhotoFile } from "react-native-vision-camera";
 import IDPhotoScreen from "../../screens/idPhotoScreen";
 import CryptoDetailScreen from "../../screens/cryptoDetailScreen";
+import CryptoWalletDetailScreen from "../../screens/cryptoWalletDetail";
+import QRScreen from "../../screens/qrScreen";
 
 
 export type RootStackParamList = {
@@ -42,6 +44,12 @@ export type RootStackParamList = {
     },
     CryptoDetail: {
         id: string;
+    };
+    CryptoWalletDetail: {
+        cryptoId: string;
+    };
+    QR: {
+        cryptoId: string;
     };
 };
 
@@ -182,6 +190,22 @@ const MainNavigator = () => {
         <Stack.Screen
             name="CryptoDetail"
             component={CryptoDetailScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="CryptoWalletDetail"
+            component={CryptoWalletDetailScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="QR"
+            component={QRScreen}
             options={{
                 headerShown: false,
             }}

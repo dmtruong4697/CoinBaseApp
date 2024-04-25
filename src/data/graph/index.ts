@@ -1,23 +1,18 @@
 import gaussian from 'gaussian'
 import { GraphPoint } from 'react-native-graph'
 import { GraphPathRange } from 'react-native-graph/lib/typescript/CreateGraphPath'
-
-// export interface GraphXRange {
-//     min: Date
-//     max: Date
-// }
-
-// export interface GraphYRange {
-//     min: number
-//     max: number
-// }
-
-// export interface GraphPathRange {
-//     x: GraphXRange
-//     y: GraphYRange
-// }
-
-// export type GraphRange = Partial<GraphPathRange>
+import HapticFeedback, {
+    HapticFeedbackTypes,
+  } from 'react-native-haptic-feedback'
+  
+  export function hapticFeedback(
+    force = false
+  ): void {
+    HapticFeedback.trigger("impactLight", {
+      enableVibrateFallback: force,
+      ignoreAndroidSystemSettings: force,
+    })
+  }
 
 function weightedRandom(mean: number, variance: number): number {
   var distribution = gaussian(mean, variance)

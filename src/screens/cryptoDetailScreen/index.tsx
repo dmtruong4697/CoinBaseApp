@@ -1,14 +1,18 @@
-import { View, Text, TouchableOpacity, Image, ImageSourcePropType, FlatList, TextInput, useWindowDimensions, KeyboardAvoidingView, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ImageSourcePropType, FlatList, TextInput, useWindowDimensions, KeyboardAvoidingView, SafeAreaView, ScrollView, Dimensions } from 'react-native'
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { styles } from './styles'
 import { ParamListBase, RouteProp, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigator/mainNavigator';
 import { getCoinInfo, getQuoteLatest } from '../../services/cryptocurrency';
-import { generateRandomGraphData, generateSinusGraphData } from '../../data/graph';
+import { generateRandomGraphData, generateSinusGraphData, hapticFeedback } from '../../data/graph';
 import { useColors } from '../../hooks/useColors';
 import { LineGraph, SelectionDot } from 'react-native-graph';
 import { GraphRange } from 'react-native-graph/lib/typescript/LineGraphProps';
+import CryptoWalletItem from '../../components/cryptoWalletItem';
+import Button from '../../components/button';
+import ResourceItem from '../../components/resourceItem';
+import { ResourceItemData } from '../../data/resourceItem';
 
 interface IProps {}
 
@@ -39,7 +43,7 @@ const TabData = [
     },
 ]
 
-const POINT_COUNT = 70;
+const POINT_COUNT = 100;
 const POINTS = generateRandomGraphData(POINT_COUNT)
 const COLOR = '#6a7ee7'
 const GRADIENT_FILL_COLORS = ['#7476df5D', '#7476df4D', '#7476df00']
@@ -86,12 +90,6 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
         // console.log(quoteData.USD.price);
     }
 
-    useEffect(() => {
-        fetchData();
-        fetchQuoteData();
-        // console.log(quoteData)
-    });
-
     const [isFavorite, setIsFavorite] = useState(false);
     const [tabIndex, setTabIndex] = useState(1);
 
@@ -102,9 +100,9 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
 
     const [isAnimated, setIsAnimated] = useState(true)
     const [enablePanGesture, setEnablePanGesture] = useState(true)
-    const [enableFadeInEffect, setEnableFadeInEffect] = useState(false)
+    const [enableFadeInEffect, setEnableFadeInEffect] = useState(true)
     const [enableCustomSelectionDot, setEnableCustomSelectionDot] =
-      useState(false)
+      useState(true)
     const [enableGradient, setEnableGradient] = useState(false)
     const [enableRange, setEnableRange] = useState(false)
     const [enableIndicator, setEnableIndicator] = useState(false)
@@ -142,9 +140,14 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
         }
     }, [enableRange, highestDate, points])
 
+    useEffect(() => {
+        // fetchData();
+        // fetchQuoteData();
+        // console.log(quoteData)
+    });
   
   return (
-    <ScrollView contentContainerStyle={styles.viewContainer}>
+    <ScrollView contentContainerStyle={styles.viewContainer} scrollEnabled={true}>
 
         <View style={styles.viewHeader}>
             <TouchableOpacity
@@ -176,12 +179,14 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
             </TouchableOpacity>
         </View>
 
-        <View style={styles.viewChart}>
+        {/* <ScrollView horizontal contentContainerStyle={styles.viewChart} scrollEnabled={true} style={{height: 364}}> */}
             <LineGraph
                 style={{
                         alignSelf: 'center',
-                        // width: '100%',
-                        flex: 1,
+                        width: '100%',
+                        height: 364,
+                        // backgroundColor: 'pink',
+                        // flex: 1,
                         aspectRatio: 1.4,
                         marginVertical: 20,
                 }}
@@ -191,7 +196,7 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
                 gradientFillColors={enableGradient ? GRADIENT_FILL_COLORS : undefined}
                 enablePanGesture={enablePanGesture}
                 enableFadeInMask={enableFadeInEffect}
-                onGestureStart={() => {}}
+                onGestureStart={() => {hapticFeedback()}}
                 onPointSelected={(p) => {}}
                 onGestureEnd={() => {}}
                 SelectionDot={enableCustomSelectionDot ? SelectionDot : undefined}
@@ -199,8 +204,10 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
                 enableIndicator={enableIndicator}
                 horizontalPadding={enableIndicator ? 15 : 0}
                 indicatorPulsating={indicatorPulsating}
+                // TopAxisLabel={() => <AxisLabel arrayLength={100} index={}}
+                // BottomAxisLabel={() => <Text>Min</Text>}
             />
-        </View>
+        {/* </ScrollView> */}
 
         <View style={styles.viewTabGroup}>
             <FlatList
@@ -220,6 +227,66 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
                 horizontal
                 contentContainerStyle={{justifyContent: 'space-between',width: '100%',}}
             />
+        </View>
+
+        {/* view wallet */}
+        <View style={styles.viewWallet}>
+            <CryptoWalletItem
+                id='1'
+                name={data.name}
+                iconUrl={data.logo}
+                symbol={data.symbol}
+                quantity={0}
+                total={0}
+            />
+
+            <Button
+                title='Trade'
+                onPress={() => {
+
+                }}
+            />
+
+            <View style={styles.viewSuggest}>
+                <View style={styles.viewText}>
+                    <Text style={styles.txtSuggestTitle}>When’s the best time to buy?</Text>
+                    <View style={styles.viewDescription}>
+                        <Text style={styles.txtSuggestDescription}>Timing any invesment is hard, which is why many investors use dollar cost averaging.</Text>
+                    </View>
+                </View>
+
+                <Image style={styles.imgSuggest} source={require('../../../assets/illustrations/cryptoDetailScreen/cart.png')}/>
+            </View>
+        </View>
+
+        {/* view about */}
+        <View style={styles.viewAbout}>
+            <Text style={styles.txtTitle}>About {data.name}</Text>
+            <Text style={styles.txtAbout}>{data.description}</Text>
+        </View>
+
+        {/* view resource */}
+        <View style={styles.viewResource}>
+            <Text style={styles.txtTitle}>Resources</Text>
+            <FlatList
+                data={ResourceItemData}
+                keyExtractor={item => item.id}
+                scrollEnabled={false}
+                renderItem={({item}) => (
+                    <ResourceItem
+                        id={item.id}
+                        name={item.name}
+                        iconUrl={item.iconUrl}
+                        link=''
+                    />
+                )}
+                contentContainerStyle={{gap: 10,}}
+            />
+        </View>
+
+        {/* market stat */}
+        <View style={styles.viewMarketStat}>
+            <Text style={styles.txtTitle}>Market stats</Text>
         </View>
 
     </ScrollView>

@@ -3,8 +3,8 @@ import { colors } from "../../constants/colors";
 
 export const styles = StyleSheet.create({
     viewContainer: {
-        flex: 1,
-        height: '200%',
+        flexGrow: 1,
+        // height: '200%',
         backgroundColor: '#FFFFFF',
         padding: 15,
         alignItems: 'center',
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     txtNamePrice: {
         fontSize: 14,
         fontWeight: '400',
-        color: '#707070',
+        color: colors.SecondTextColor,
     },
 
     txtPrice: {
@@ -74,8 +74,9 @@ export const styles = StyleSheet.create({
     },
 
     viewChart: {
-        width: '100%',
+        // width: '100%',
         height: 364,
+        backgroundColor: 'green',
         marginHorizontal: 12,
     },
 
@@ -84,6 +85,7 @@ export const styles = StyleSheet.create({
         height: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginVertical: 12,
     },
 
     btnTab: {
@@ -96,6 +98,85 @@ export const styles = StyleSheet.create({
     txtTab: {
         fontSize: 14,
         fontWeight: '400',
-        color: '#707070',
+        color: colors.SecondTextColor,
+    },
+
+    viewWallet: {
+        marginVertical: 12,
+        width: '100%',
+        flexDirection: 'column',
+        gap: 16,
+    },
+
+    viewSuggest: {
+        width: '100%',
+        padding: 15,
+        flexDirection: 'row',
+        alignItems: 'center',
+
+        borderWidth: 1,
+        borderColor: colors.BorderColor,
+        borderRadius: 10,
+    },
+
+    viewText: {
+        flexDirection: 'column',
+        flex: 1,
+        marginRight:5,
+    },
+
+    viewDescription: {
+        width: '90%',
+    },
+
+    imgSuggest: {
+        width: 64,
+        height: 51,
+    },
+
+    txtSuggestTitle: {
+        fontSize: 18,
+        fontWeight: '400',
+        color: colors.PrimaryTextColor,
+    },
+
+    txtSuggestDescription: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: colors.SecondTextColor,
+    },
+
+    viewAbout: {
+        width: '100%',
+        marginVertical: 12,
+        flexDirection: 'column',
+        gap: 12,
+    },
+
+    txtTitle: {
+        fontSize: 22,
+        fontWeight: '400',
+        color: colors.PrimaryTextColor,
+    },
+
+    txtAbout: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: colors.SecondTextColor,
+        lineHeight: 22,
+    },
+
+    viewResource: {
+        width: '100%',
+        marginVertical: 12,
+        flexDirection: 'column',
+        gap: 12,
+    },
+
+    viewMarketStat: {
+        width: '100%',
+        marginVertical: 12,
+        flexDirection: 'column',
+        gap: 12,
     },
 })
