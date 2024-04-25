@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { styles } from './styles';
 import { colors } from '../../constants/colors';
 import { getCoinInfo, getQuoteLatest } from '../../services/cryptocurrency';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 interface IProps {
     id: string,
@@ -15,6 +17,9 @@ interface IProps {
 }
 
 const WatchlistItem: React.FC<IProps> = ({id, name, iconUrl, price, symbol, percentChange}) => {
+
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
 
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -36,15 +41,17 @@ const WatchlistItem: React.FC<IProps> = ({id, name, iconUrl, price, symbol, perc
         console.log(quoteData.USD.price);
     }
 
-    // useEffect(() => {
-    //     fetchData();
-    //     fetchQuoteData();
-    // })
+    useEffect(() => {
+        fetchData();
+        // fetchQuoteData();
+    })
       
   return (
     <TouchableOpacity
         style={styles.viewContainer}
-        onPress={() => getCoinInfo(1)}
+        onPress={() => {
+            navigation.navigate('CryptoDetail', {id: id});
+        }}
     >
         <Image style={styles.imgIcon} source={{uri: data.logo}}/>
         <View style={styles.viewText}>

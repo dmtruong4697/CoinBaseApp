@@ -17,6 +17,7 @@ import SelectIDTypeScreen from "../../screens/selectIDTypeScreen";
 import CameraScreen from "../../screens/cameraScreen";
 import { PhotoFile } from "react-native-vision-camera";
 import IDPhotoScreen from "../../screens/idPhotoScreen";
+import CryptoDetailScreen from "../../screens/cryptoDetailScreen";
 
 
 export type RootStackParamList = {
@@ -39,6 +40,9 @@ export type RootStackParamList = {
     IDPhoto: {
         photo: PhotoFile,
     },
+    CryptoDetail: {
+        id: string;
+    };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,7 +50,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const MainNavigator = () => {
 
   return (
-    <Stack.Navigator initialRouteName="Welcome">
+    <Stack.Navigator initialRouteName="HomeNavigator">
         <Stack.Screen 
             name="Welcome" 
             component={WelcomeScreen}
@@ -170,6 +174,14 @@ const MainNavigator = () => {
         <Stack.Screen
             name="IDPhoto"
             component={IDPhotoScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="CryptoDetail"
+            component={CryptoDetailScreen}
             options={{
                 headerShown: false,
             }}

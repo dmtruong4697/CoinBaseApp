@@ -121,7 +121,7 @@ const HomeScreen: React.FC<IProps>  = () => {
         <View style={styles.viewWatchList}>
           <Text style={styles.txtGroupTitle}>Top movers</Text>
           <FlatList
-            data={TopMovertData}
+            data={data}
             keyExtractor={item => item.id}
             scrollEnabled={true}
             renderItem={({item}) => (
