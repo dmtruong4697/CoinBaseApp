@@ -3,6 +3,9 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useR
 import { styles } from './styles'
 import { ParamListBase, RouteProp, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SettingAccountData, SettingSecurityData } from '../../data/setting';
+import SettingItem from '../../components/settingItem';
+import Button from '../../components/button';
 
 interface IProps {}
 
@@ -11,9 +14,81 @@ const SettingScreen: React.FC<IProps>  = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   
   return (
-    <SafeAreaView style={styles.viewContainer}>
-        <Text>home</Text>
-    </SafeAreaView>
+    <ScrollView contentContainerStyle={styles.viewContainer}>
+      <View style={styles.viewUserInfo}>
+        <Text style={styles.txtEmail}>ivy.xuyp@gmail.com</Text>
+        <Text style={styles.txtName}>YuanPin, Ivy Xu</Text>
+      </View>
+
+      <TouchableOpacity
+        style={styles.viewShare}
+        onPress={() => {
+
+        }}
+      >
+        <Text style={styles.txtShare}>Share your love of crypto and get $10 of free Bitcoin</Text>
+        <Image style={styles.imgBitcoin} source={require('../../../assets/icons/settingScreen/bitcoin.png')} />
+      </TouchableOpacity>
+
+      <View style={styles.viewGroup}>
+        <Text style={styles.txtGroupTitle}>Payment Methods</Text>
+        <Button
+          onPress={() => {
+
+          }}
+          title='Add a payment method'
+          type='solid'
+        />
+      </View>
+
+      <View style={styles.viewGroup}>
+        <Text style={styles.txtGroupTitle}>Account</Text>
+        <FlatList
+          data={SettingAccountData}
+          keyExtractor={item => item.id}
+          scrollEnabled={false}
+          renderItem={({item}) => (
+            <SettingItem
+              id={item.id}
+              title={item.title}
+              onPress={() => item.onPress(navigation)}
+            />
+          )}
+          contentContainerStyle={{gap: 5,}}
+        />
+      </View>
+
+      <View style={styles.viewGroup}>
+        <Text style={styles.txtGroupTitle}>Sercurity</Text>
+        <FlatList
+          data={SettingSecurityData}
+          keyExtractor={item => item.id}
+          scrollEnabled={false}
+          renderItem={({item}) => (
+            <SettingItem
+              id={item.id}
+              title={item.title}
+              onPress={() => item.onPress(navigation)}
+              renderToggle={item.renderToggle}
+              toggleStatus={item.toggleStatus}
+              description={item.description}
+            />
+          )}
+          contentContainerStyle={{gap: 5,}}
+        />
+      </View>
+
+      <View style={styles.viewGroup}>
+        <Button
+          title='Sign out'
+          onPress={() => {
+
+          }}
+          type='solid'
+          titleStyle={{color: '#E25C5C'}}
+        />
+      </View>
+    </ScrollView>
   )
 }
 

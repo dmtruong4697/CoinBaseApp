@@ -182,6 +182,13 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
                     )}
                     contentContainerStyle={{gap: 10, }}
                 />
+                <Button
+                    title='Add a payment method'
+                    type='solid'
+                    onPress={() => {
+
+                    }}
+                />
             </View>
         </RBSheet>
 

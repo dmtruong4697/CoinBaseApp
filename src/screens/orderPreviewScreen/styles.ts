@@ -112,5 +112,23 @@ export const styles = StyleSheet.create({
         fontSize: 10,
         fontWeight: '600',
         color: '#FFFFFF',
+    },
+
+    txtCrypto: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: colors.SecondTextColor,
+    },
+
+    txtDollar: {
+        fontSize: 28,
+        fontWeight: '400',
+        color: colors.PrimaryTextColor,
+    },
+
+    viewPrice: {
+        width: '100%',
+        marginVertical: 20,
+        alignItems: 'center',
     }
 })
