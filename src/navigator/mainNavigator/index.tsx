@@ -20,6 +20,8 @@ import IDPhotoScreen from "../../screens/idPhotoScreen";
 import CryptoDetailScreen from "../../screens/cryptoDetailScreen";
 import CryptoWalletDetailScreen from "../../screens/cryptoWalletDetail";
 import QRScreen from "../../screens/qrScreen";
+import BuyCryptoScreen from "../../screens/buyCryptoScreen";
+import BuyPreviewScreen from "../../screens/buyPreviewScreen";
 
 
 export type RootStackParamList = {
@@ -50,6 +52,13 @@ export type RootStackParamList = {
     };
     QR: {
         cryptoId: string;
+    };
+    BuyCrypto: {
+        id: string;
+        cryptoId: string,
+    };
+    BuyPreview: {
+        orderId: string,
     };
 };
 
@@ -206,6 +215,21 @@ const MainNavigator = () => {
         <Stack.Screen
             name="QR"
             component={QRScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="BuyCrypto"
+            component={BuyCryptoScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+        <Stack.Screen
+            name="BuyPreview"
+            component={BuyPreviewScreen}
             options={{
                 headerShown: false,
             }}

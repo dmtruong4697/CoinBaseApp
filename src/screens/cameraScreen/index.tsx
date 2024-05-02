@@ -34,7 +34,7 @@ const CameraScreen: React.FC<IProps>  = () => {
         const data = await result.blob();
         console.log(data)
         setPhoto(image);
-        navigation.navigate('IDPhoto', {photo: photo});
+        if(photo) navigation.navigate('IDPhoto', {photo: photo});
     }
 
     useEffect(() => {

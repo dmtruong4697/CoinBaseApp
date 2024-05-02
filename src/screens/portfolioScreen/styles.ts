@@ -12,10 +12,22 @@ export const styles = StyleSheet.create({
     viewHeader: {
         width: '100%',
         marginVertical: 10,
+        flexDirection: 'column',
     },
 
-    btnCancel: {
-        width: 24,
-        height: 24,
+    txtBalance: {
+        fontSize: 14,
+        fontWeight: '400',
+        color: colors.SecondTextColor,
+    },
+
+    txtTotal: {
+        fontSize: 30,
+        fontWeight: '400',
+        color: colors.PrimaryTextColor,
+    },
+
+    viewList: {
+        width: '100%',
     },
 })
