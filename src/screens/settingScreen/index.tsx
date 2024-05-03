@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SettingAccountData, SettingSecurityData } from '../../data/setting';
 import SettingItem from '../../components/settingItem';
 import Button from '../../components/button';
+import auth from '@react-native-firebase/auth';
 
 interface IProps {}
 
@@ -16,7 +17,7 @@ const SettingScreen: React.FC<IProps>  = () => {
   return (
     <ScrollView contentContainerStyle={styles.viewContainer}>
       <View style={styles.viewUserInfo}>
-        <Text style={styles.txtEmail}>ivy.xuyp@gmail.com</Text>
+        <Text style={styles.txtEmail}>{auth().currentUser?.email}</Text>
         <Text style={styles.txtName}>YuanPin, Ivy Xu</Text>
       </View>
 
@@ -34,7 +35,7 @@ const SettingScreen: React.FC<IProps>  = () => {
         <Text style={styles.txtGroupTitle}>Payment Methods</Text>
         <Button
           onPress={() => {
-
+            navigation.navigate('AddCard');
           }}
           title='Add a payment method'
           type='solid'

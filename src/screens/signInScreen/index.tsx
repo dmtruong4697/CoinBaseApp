@@ -7,6 +7,7 @@ import { RootStackParamList } from '../../navigator/mainNavigator';
 import Button from '../../components/button';
 import InputField from '../../components/inputField';
 import { Controller, useForm } from 'react-hook-form';
+import { signIn } from '../../firebase/services/authService';
 interface IProps {}
 
 const SignInScreen: React.FC<IProps>  = () => {
@@ -21,7 +22,8 @@ const SignInScreen: React.FC<IProps>  = () => {
         formState: { errors },
       } = useForm();
     
-      const onSubmit = (data: any)=> {
+      const onSubmit = async(data: any)=> {
+        await signIn(navigation, getValues().email, getValues().password);
         console.log(getValues());
       };
   
@@ -90,9 +92,8 @@ const SignInScreen: React.FC<IProps>  = () => {
                 title='Sign In'
                 type='default'
                 // onPress={handleSubmit(onSubmit)}
-                onPress={() => {
-                    navigation.navigate('ValidateCode');
-                }}
+                onPress={
+                    handleSubmit(onSubmit)}
             />
         </View>
     </View>

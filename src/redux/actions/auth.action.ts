@@ -1,13 +1,18 @@
-export const loginRequest = (email: string, password: string, deviceId: string) => ({
+export const loginRequest = (email: string, password: string, deviceToken: string) => ({
     type: "LOGIN_REQUEST",
-    payload: { email, password, deviceId },
+    payload: { email, password, deviceToken },
   });
   
 export type UserType = {
-    email: string,
-    password: string,
-    deviceId: string,
+    uid: string;
+    userEmail: string | null,
+    phoneNumber: string | null,
+    photoURL: string | null,
+    displayName: string | null,
     token: string,
+    refreshToken: string,
+    expirationTime: number,
+    deviceToken: string,
 }
 
 export const loginSuccess = (currentUser: UserType) => ({

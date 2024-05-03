@@ -13,6 +13,7 @@ import NumberKeyboard from '../../components/numberKeyboard';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { RepeatPruchaseData } from '../../data/repeatPurchase';
 import { CreditCardData } from '../../data/creditCard';
+import notifee, { AndroidColor } from '@notifee/react-native';
 
 interface IProps {}
 
@@ -31,6 +32,31 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
     const repeatRef = useRef();
     const [repeatTypeId, setRepeatTypeId] = useState('1');
     const [creditCard, setCreditCard] = useState(CreditCardData[0]);
+
+    async function onDisplayNotification() {
+        // Request permissions (required for iOS)
+        await notifee.requestPermission()
+    
+        // Create a channel (required for Android)
+        const channelId = await notifee.createChannel({
+          id: 'default',
+          name: 'Default Channel',
+        });
+    
+        // Display a notification
+        await notifee.displayNotification({
+          title: 'Notification Title',
+          body: 'Main body content of the notification',
+          android: {
+            channelId,
+            // smallIcon: 'name-of-a-small-icon', 
+            // pressAction is needed if you want the notification to open the app when pressed
+            pressAction: {
+              id: 'default',
+            },
+          },
+        });
+      }
   
   return (
     <BuyCryptoContext.Provider value={{value, setValue}}>
@@ -86,7 +112,8 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
             <Button
                 title='Preview buy'
                 onPress={() => {
-                    navigation.navigate('BuyPreview', {orderId: ''})
+                    // navigation.navigate('BuyPreview', {orderId: ''})
+                    onDisplayNotification()
                 }}
             />
         </View>
