@@ -23,3 +23,21 @@ export async function signIn(
         throw error;
     }
 }
+
+export async function signOut(
+  navigation: NavigationProp<any, any>,
+): Promise<any> {
+  try {
+
+      await auth()
+      .signOut()
+      .then(() => {
+        navigation.navigate('SignIn');
+      });
+      
+  }
+  catch (error) {
+    console.log(error);
+      throw error;
+  }
+}

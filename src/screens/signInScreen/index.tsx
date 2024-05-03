@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, ImageSourcePropType, FlatList, TextInput, useWindowDimensions } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ImageSourcePropType, FlatList, TextInput, useWindowDimensions, ActivityIndicator } from 'react-native'
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { styles } from './styles'
 import { ParamListBase, RouteProp, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
@@ -21,9 +21,13 @@ const SignInScreen: React.FC<IProps>  = () => {
         getValues,
         formState: { errors },
       } = useForm();
+
+      const [isLoading, setIsLoading] = useState(false);
     
       const onSubmit = async(data: any)=> {
+        setIsLoading(true);
         await signIn(navigation, getValues().email, getValues().password);
+        setIsLoading(false);
         console.log(getValues());
       };
   
@@ -96,6 +100,10 @@ const SignInScreen: React.FC<IProps>  = () => {
                     handleSubmit(onSubmit)}
             />
         </View>
+
+        {(isLoading) && 
+            <ActivityIndicator size={'large'}/>
+        }
     </View>
   )
 }

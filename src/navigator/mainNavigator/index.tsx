@@ -24,6 +24,7 @@ import BuyCryptoScreen from "../../screens/buyCryptoScreen";
 import BuyPreviewScreen from "../../screens/buyPreviewScreen";
 import OrderPreviewScreen from "../../screens/orderPreviewScreen";
 import AddCardScreen from "../../screens/addCardScreen";
+import SearchScreen from "../../screens/searchScreen";
 
 
 export type RootStackParamList = {
@@ -65,9 +66,8 @@ export type RootStackParamList = {
     OrderPreview: {
         orderId: string,
     };
-    AddCard: {
-
-    };
+    AddCard: {};
+    Search: {};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -252,6 +252,13 @@ const MainNavigator = () => {
         <Stack.Screen
             name="AddCard"
             component={AddCardScreen}
+            options={{
+                headerShown: false,
+            }}
+        />
+        <Stack.Screen
+            name="Search"
+            component={SearchScreen}
             options={{
                 headerShown: false,
             }}

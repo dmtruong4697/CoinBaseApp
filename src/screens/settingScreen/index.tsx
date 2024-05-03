@@ -7,12 +7,16 @@ import { SettingAccountData, SettingSecurityData } from '../../data/setting';
 import SettingItem from '../../components/settingItem';
 import Button from '../../components/button';
 import auth from '@react-native-firebase/auth';
+import { signOut } from '../../firebase/services/authService';
 
 interface IProps {}
 
 const SettingScreen: React.FC<IProps>  = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const handleSignOut = async() => {
+      await signOut(navigation);
+    }
   
   return (
     <ScrollView contentContainerStyle={styles.viewContainer}>
@@ -83,7 +87,7 @@ const SettingScreen: React.FC<IProps>  = () => {
         <Button
           title='Sign out'
           onPress={() => {
-
+            handleSignOut();
           }}
           type='solid'
           titleStyle={{color: '#E25C5C'}}
