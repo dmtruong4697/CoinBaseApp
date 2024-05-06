@@ -14,6 +14,8 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { RepeatPruchaseData } from '../../data/repeatPurchase';
 import { CreditCardData } from '../../data/creditCard';
 import notifee, { AndroidColor } from '@notifee/react-native';
+import { CreditCardType, getAllCreditCard } from '../../firebase/services/creditService';
+import { useSelector } from 'react-redux';
 
 interface IProps {}
 
@@ -23,40 +25,46 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const route = useRoute<RouteProp<RootStackParamList, 'BuyCrypto'>>();
-    const {id, cryptoId} = route.params;
+    const {id, cryptoId, crypto} = route.params;
+    const currentUser = useSelector((state: any) => state.auth.currentUser);
 
-    const crypto = PortfolioData[Number(id)-1];
+    const cryptoDetail = crypto;
     const [value, setValue] = useState('0');
 
     const paymentRef = useRef();
     const repeatRef = useRef();
     const [repeatTypeId, setRepeatTypeId] = useState('1');
-    const [creditCard, setCreditCard] = useState(CreditCardData[0]);
+    const [creditCard, setCreditCard] = useState<CreditCardType>({"cardNumber": "1234 5678 90", "cvc": "123", "expiration": "08/25", "id": "be02996147b1e", "limit": 200, "nameOnCard": "Minh Truong", "postalCode": "012345", "total": 100000, "unit": "USD"});
 
     async function onDisplayNotification() {
-        // Request permissions (required for iOS)
         await notifee.requestPermission()
     
-        // Create a channel (required for Android)
         const channelId = await notifee.createChannel({
           id: 'default',
           name: 'Default Channel',
         });
     
-        // Display a notification
         await notifee.displayNotification({
           title: 'Notification Title',
           body: 'Main body content of the notification',
           android: {
             channelId,
-            // smallIcon: 'name-of-a-small-icon', 
-            // pressAction is needed if you want the notification to open the app when pressed
             pressAction: {
               id: 'default',
             },
           },
         });
       }
+
+    const [cards, setCards] = useState<CreditCardType[]>([]);
+    const fetchData = async() => {
+        const card = await getAllCreditCard(currentUser.uid, navigation);
+        setCards(card);
+    }
+
+    useEffect(() => {
+        fetchData();
+    },[])
   
   return (
     <BuyCryptoContext.Provider value={{value, setValue}}>
@@ -70,12 +78,12 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
                 <Image style={styles.btnCancel} source={require('../../../assets/icons/header/back.png')}/>
             </TouchableOpacity>
 
-            <Text style={styles.txtHeaderTitle}>Buy {crypto.name}</Text>
+            <Text style={styles.txtHeaderTitle}>Buy {cryptoDetail.name}</Text>
         </View>
 
         <View style={styles.viewGroup}>
             <View style={styles.viewPrice}>
-                <Text style={styles.txtPrice}>SGD {value}</Text>
+                <Text style={styles.txtPrice}>{creditCard.unit} {value}</Text>
                 <TouchableOpacity
                     style={styles.btnSwap}
                 >
@@ -94,9 +102,9 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
 
             <PaymentCard
                 id={creditCard.id}
-                code={creditCard.code}
+                code={creditCard?.cardNumber}
                 limit={creditCard.limit}
-                name={creditCard.name}
+                name={creditCard?.nameOnCard}
                 type='default'
                 unit={creditCard.unit}
                 onPress={() => {
@@ -112,8 +120,8 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
             <Button
                 title='Preview buy'
                 onPress={() => {
-                    // navigation.navigate('BuyPreview', {orderId: ''})
-                    onDisplayNotification()
+                    navigation.navigate('BuyPreview', {orderId: ''})
+                    // onDisplayNotification()
                 }}
             />
         </View>
@@ -187,15 +195,15 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
             <View style={styles.viewRepeat}>
                 <Text style={styles.txtRepeatTitle}>Payment with</Text>
                 <FlatList
-                    data={CreditCardData}
+                    data={cards}
                     keyExtractor={item => item.id}
                     scrollEnabled={false}
                     renderItem={({item}) => (
                         <PaymentCard
                             id={item.id}
-                            code={item.code}
+                            code={item.cardNumber}
                             limit={item.limit}
-                            name={item.name}
+                            name={item.nameOnCard}
                             type={(creditCard.id == item.id)? 'second':'default'}
                             containerStyle={{
                                 borderWidth: 0,
@@ -213,7 +221,7 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
                     title='Add a payment method'
                     type='solid'
                     onPress={() => {
-
+                        navigation.navigate('AddCard');
                     }}
                 />
             </View>

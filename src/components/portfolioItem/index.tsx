@@ -5,6 +5,7 @@ import { colors } from '../../constants/colors';
 import { getCoinInfo, getQuoteLatest } from '../../services/cryptocurrency';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { CryptoType } from '../../firebase/services/cryptoService';
 
 interface IProps {
     id: string,
@@ -30,7 +31,12 @@ const PortfolioItem: React.FC<IProps> = ({id, name, iconUrl, total, symbol, quan
     <TouchableOpacity
         style={styles.viewContainer}
         onPress={() => {
-            navigation.navigate('BuyCrypto', {id: id});
+            navigation.navigate('BuyCrypto', {id: id, crypto: {
+                id: id,
+                logo: iconUrl,
+                symbol: symbol,
+                name: name,
+            }});
         }}
     >
         <Image style={styles.imgIcon} source={{uri: iconUrl}}/>

@@ -7,28 +7,33 @@ import { SettingAccountData, SettingSecurityData } from '../../data/setting';
 import SettingItem from '../../components/settingItem';
 import Button from '../../components/button';
 import auth from '@react-native-firebase/auth';
-import { signOut } from '../../firebase/services/authService';
+import { signout } from '../../firebase/services/authService';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserType } from '../../redux/actions/auth.action';
 
 interface IProps {}
 
-const SettingScreen: React.FC<IProps>  = () => {
+const SettingScreen: React.FC<IProps>  = ({}) => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const currentUser = useSelector((state: any) => state.auth.currentUser);
+    const dispatch = useDispatch();
+
     const handleSignOut = async() => {
-      await signOut(navigation);
+      await signout(currentUser.uid, dispatch, navigation);
     }
   
   return (
     <ScrollView contentContainerStyle={styles.viewContainer}>
       <View style={styles.viewUserInfo}>
-        <Text style={styles.txtEmail}>{auth().currentUser?.email}</Text>
-        <Text style={styles.txtName}>YuanPin, Ivy Xu</Text>
+        <Text style={styles.txtEmail}>{currentUser?.userEmail}</Text>
+        <Text style={styles.txtName}>{currentUser?.displayName}</Text>
       </View>
 
       <TouchableOpacity
         style={styles.viewShare}
         onPress={() => {
-
+          console.log(currentUser);
         }}
       >
         <Text style={styles.txtShare}>Share your love of crypto and get $10 of free Bitcoin</Text>

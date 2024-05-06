@@ -20,6 +20,12 @@ const initialState = {
           currentUser: null,
           errorMessage: action.payload,
         };
+      case "SIGN_OUT":
+        return {
+          ...state,
+          currentUser: null,
+          errorMessage: action.payload,
+        };
       default:
         return state;
     }

@@ -25,6 +25,7 @@ import BuyPreviewScreen from "../../screens/buyPreviewScreen";
 import OrderPreviewScreen from "../../screens/orderPreviewScreen";
 import AddCardScreen from "../../screens/addCardScreen";
 import SearchScreen from "../../screens/searchScreen";
+import { CryptoType } from "../../firebase/services/cryptoService";
 
 
 export type RootStackParamList = {
@@ -59,6 +60,7 @@ export type RootStackParamList = {
     BuyCrypto: {
         id: string;
         cryptoId: string,
+        crypto: CryptoType,
     };
     BuyPreview: {
         orderId: string,

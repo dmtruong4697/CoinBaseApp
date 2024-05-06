@@ -8,11 +8,15 @@ import Button from '../../components/button';
 import InputField from '../../components/inputField';
 import { Controller, useForm } from 'react-hook-form';
 import { signIn } from '../../firebase/services/authService';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess } from '../../redux/actions/auth.action';
 interface IProps {}
 
 const SignInScreen: React.FC<IProps>  = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state: any) => state.auth.currentUser);
 
     const {
         register,
@@ -26,7 +30,10 @@ const SignInScreen: React.FC<IProps>  = () => {
     
       const onSubmit = async(data: any)=> {
         setIsLoading(true);
-        await signIn(navigation, getValues().email, getValues().password);
+        await signIn(navigation, getValues().email, getValues().password)
+            .then((user) => {
+                dispatch(loginSuccess(user));
+            });
         setIsLoading(false);
         console.log(getValues());
       };
@@ -83,7 +90,11 @@ const SignInScreen: React.FC<IProps>  = () => {
             {errors.password && <Text>Password is required.</Text>}
 
             <View style={styles.viewOptionGroup}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        console.log(currentUser)
+                    }}
+                >
                     <Text style={styles.txtOption}>Forgot password</Text>
                 </TouchableOpacity>
 

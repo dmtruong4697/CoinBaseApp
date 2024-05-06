@@ -6,6 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigator/mainNavigator';
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import Button from '../../components/button';
+import { CreditCardType, addCreditCard } from '../../firebase/services/creditService';
+import { useSelector } from 'react-redux';
 
 interface IProps {}
 
@@ -23,6 +25,7 @@ const AddCardScreen: React.FC<IProps>  = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     // const route = useRoute<RouteProp<RootStackParamList, 'CryptoDetail'>>();
     // const {id} = route.params;
+    const currentUser = useSelector((state: any) => state.auth.currentUser);
 
     const {
         register,
@@ -53,6 +56,22 @@ const AddCardScreen: React.FC<IProps>  = () => {
         }
 
         setExpiration(text);
+    }
+    const handleAddCard = async() => {
+        const newCard: CreditCardType = {
+            id: Math.random().toString(16).slice(2),
+            cardNumber: getValues().cardNumber,
+            nameOnCard: getValues().nameOnCard,
+            unit: 'USD',
+            cvc: getValues().cvc,
+            expiration: getValues().expiration,
+            limit: 200,
+            postalCode: getValues().postalCode,
+            total: 100000,
+        }
+
+        const message = await addCreditCard(currentUser.uid, newCard, navigation);
+        console.log(message);
     }
   
   return (
@@ -219,7 +238,10 @@ const AddCardScreen: React.FC<IProps>  = () => {
 
             <Button
                 title='Add Card'
-                onPress={handleSubmit(onSubmit)}
+                // onPress={handleSubmit(onSubmit)}
+                onPress={() => {
+                    handleAddCard();
+                }}
             />
         </View>
 
