@@ -50,7 +50,13 @@ const WatchlistItem: React.FC<IProps> = ({id, name, iconUrl, price, symbol, perc
     <TouchableOpacity
         style={styles.viewContainer}
         onPress={() => {
-            navigation.navigate('CryptoDetail', {id: id});
+            navigation.navigate('CryptoDetail', {id: id, crypto: {
+                id: id,
+                logo: iconUrl,
+                symbol: symbol,
+                name: name,
+                price: price,
+            }});
         }}
     >
         <Image style={styles.imgIcon} source={{uri: data.logo}}/>

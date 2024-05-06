@@ -53,7 +53,7 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const route = useRoute<RouteProp<RootStackParamList, 'CryptoDetail'>>();
-    const {id} = route.params;
+    const {id, crypto} = route.params;
 
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -243,7 +243,7 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
             <Button
                 title='Trade'
                 onPress={() => {
-
+                    navigation.navigate('BuyCrypto', {crypto: crypto});
                 }}
             />
 

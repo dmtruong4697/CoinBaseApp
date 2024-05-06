@@ -108,7 +108,8 @@ const HomeScreen: React.FC<IProps>  = () => {
                 id={item.id}
                 iconUrl={'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png'}
                 name={item.name}
-                price={item.price}
+                // price={item.price}
+                price={5}
                 symbol={item.symbol}
                 percentChange={item.percentChange}
               />

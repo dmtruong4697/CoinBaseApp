@@ -14,10 +14,11 @@ interface IProps {
     iconUrl: string,
     total: number,
     quantity: number,
+    price: number,
 
 }
 
-const PortfolioItem: React.FC<IProps> = ({id, name, iconUrl, total, symbol, quantity}) => {
+const PortfolioItem: React.FC<IProps> = ({id, name, iconUrl, total, symbol, quantity, price}) => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
@@ -36,6 +37,7 @@ const PortfolioItem: React.FC<IProps> = ({id, name, iconUrl, total, symbol, quan
                 logo: iconUrl,
                 symbol: symbol,
                 name: name,
+                price: price,
             }});
         }}
     >

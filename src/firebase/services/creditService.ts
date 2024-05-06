@@ -1,5 +1,6 @@
 import { NavigationProp } from "@react-navigation/native";
 import database from '@react-native-firebase/database';
+import { ToastAndroid } from "react-native";
 
 export type CreditCardType = {
     id: string,
@@ -64,6 +65,12 @@ try {
         message = 'Add card success!';
         navigation.goBack();
     });
+
+    ToastAndroid.showWithGravity(
+        'Add card success!',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
 
     return message;
 }

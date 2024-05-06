@@ -12,7 +12,7 @@ const OrderPreviewScreen: React.FC<IProps>  = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const route = useRoute<RouteProp<RootStackParamList, 'BuyPreview'>>();
-    const {orderId} = route.params;
+    const {order} = route.params;
   
   return (
     <ScrollView contentContainerStyle={styles.viewContainer}>
@@ -71,9 +71,9 @@ const OrderPreviewScreen: React.FC<IProps>  = () => {
 
         <View style={styles.viewBottom}>
             <Button
-                title='Buy now'
+                title='Continue'
                 onPress={() => {
-
+                    navigation.navigate('HomeNavigator');
                 }}
             />
         </View>

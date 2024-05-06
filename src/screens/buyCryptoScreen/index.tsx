@@ -16,6 +16,7 @@ import { CreditCardData } from '../../data/creditCard';
 import notifee, { AndroidColor } from '@notifee/react-native';
 import { CreditCardType, getAllCreditCard } from '../../firebase/services/creditService';
 import { useSelector } from 'react-redux';
+import { OrderType } from '../../firebase/services/cryptoService';
 
 interface IProps {}
 
@@ -65,6 +66,23 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
     useEffect(() => {
         fetchData();
     },[])
+
+    const [order, setOrder] = useState<OrderType>();
+    const handlePreview = () => {
+        const newOrder:OrderType = {
+            id: Math.random().toString(16).slice(2),
+            cardId: creditCard.id,
+            createAt: new Date().toISOString(),
+            crypto: crypto,
+            price: crypto.price,
+            total: Number(value),
+            quantity: (Number(value) - Number(value)*0.005)/crypto.price,
+            uid: currentUser.uid,
+            unit: creditCard.unit,
+        }
+
+        navigation.navigate('BuyPreview', {order: newOrder});
+    }
   
   return (
     <BuyCryptoContext.Provider value={{value, setValue}}>
@@ -120,7 +138,7 @@ const BuyCryptoScreen: React.FC<IProps>  = () => {
             <Button
                 title='Preview buy'
                 onPress={() => {
-                    navigation.navigate('BuyPreview', {orderId: ''})
+                    handlePreview();
                     // onDisplayNotification()
                 }}
             />
