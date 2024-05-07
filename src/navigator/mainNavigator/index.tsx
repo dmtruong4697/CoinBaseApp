@@ -53,10 +53,10 @@ export type RootStackParamList = {
         crypto: CryptoType,
     };
     CryptoWalletDetail: {
-        cryptoId: string;
+        portfolio: any,
     };
     QR: {
-        cryptoId: string;
+        portfolioId: string;
     };
     BuyCrypto: {
         id: string;

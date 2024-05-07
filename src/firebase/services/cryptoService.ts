@@ -60,7 +60,7 @@ export async function buyCrypto(
         });
         }
 
-        const item = array.find(item => item.crypto == order.crypto);
+        const item = array.find(item => item.crypto.name == order.crypto.name);
         if(item) {
             item.quantity += order.quantity;
             item.price = order.price;
@@ -83,7 +83,6 @@ export async function buyCrypto(
                 total: order.total,
             })
         
-            
         await database()
         .ref(`/credit-card/${order.uid}/${order.cardId}`)
         .once('value', async(snapshot) => {
@@ -96,7 +95,7 @@ export async function buyCrypto(
 
         await database()
         .ref(`/order/${order.uid}/${order.id}`)
-        .set(order)
+        .set(order);
 
         ToastAndroid.showWithGravity(
             'Buy Crypto success!',

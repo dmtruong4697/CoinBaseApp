@@ -13,6 +13,8 @@ import CryptoWalletItem from '../../components/cryptoWalletItem';
 import Button from '../../components/button';
 import ResourceItem from '../../components/resourceItem';
 import { ResourceItemData } from '../../data/resourceItem';
+import { getPortfolioByCrypto } from '../../firebase/services/portfolioService';
+import { useSelector } from 'react-redux';
 
 interface IProps {}
 
@@ -54,6 +56,7 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const route = useRoute<RouteProp<RootStackParamList, 'CryptoDetail'>>();
     const {id, crypto} = route.params;
+    const currentUser = useSelector((state: any) => state.auth.currentUser);
 
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -77,10 +80,15 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
             }
         }
     });
+
+    let portfolio = {};
     const fetchData = async() => {
-        let Data = await getCoinInfo(Number(id));
-        const ID = id.toString();
-        setData(Data[id]);
+        // let Data = await getCoinInfo(Number(id));
+        // const ID = id.toString();
+        // setData(Data[id]);
+
+        const wallet = await getPortfolioByCrypto(currentUser.uid, crypto);
+        portfolio = wallet;
     }
 
     const fetchQuoteData = async() => {
@@ -141,10 +149,10 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
     }, [enableRange, highestDate, points])
 
     useEffect(() => {
-        // fetchData();
+        fetchData();
         // fetchQuoteData();
         // console.log(quoteData)
-    });
+    },[]);
   
   return (
     <ScrollView contentContainerStyle={styles.viewContainer} scrollEnabled={true}>
@@ -233,17 +241,16 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
         <View style={styles.viewWallet}>
             <CryptoWalletItem
                 id='1'
-                name={data.name}
-                iconUrl={data.logo}
-                symbol={data.symbol}
                 quantity={0}
                 total={0}
+                crypto={crypto}
             />
 
             <Button
                 title='Trade'
                 onPress={() => {
                     navigation.navigate('BuyCrypto', {crypto: crypto});
+                    // console.log(portfolio)
                 }}
             />
 

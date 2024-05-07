@@ -13,8 +13,8 @@ interface IProps {}
 const QRScreen: React.FC<IProps>  = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-    const route = useRoute<RouteProp<RootStackParamList, 'CryptoDetail'>>();
-    const {id} = route.params;
+    const route = useRoute<RouteProp<RootStackParamList, 'QR'>>();
+    const {portfolioId} = route.params;
 
     const [addressCode, setAddressCode] = useState('');
 
@@ -43,7 +43,7 @@ const QRScreen: React.FC<IProps>  = () => {
         <View style={styles.viewQRCard}>
             <View style={styles.viewQR}>
                 <QRCode
-                    value="Just some string value"
+                    value={portfolioId}
                     // logo={{uri: base64Logo}}
                     size={198}
                     logoSize={30}

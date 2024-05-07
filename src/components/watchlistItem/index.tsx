@@ -52,7 +52,7 @@ const WatchlistItem: React.FC<IProps> = ({id, name, iconUrl, price, symbol, perc
         onPress={() => {
             navigation.navigate('CryptoDetail', {id: id, crypto: {
                 id: id,
-                logo: iconUrl,
+                logo: data.logo,
                 symbol: symbol,
                 name: name,
                 price: price,

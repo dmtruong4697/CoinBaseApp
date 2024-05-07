@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 12,
+        marginBottom: 20,
     },
 
     viewTotalInfo: {
@@ -77,7 +78,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         gap: 15,
 
-        marginTop: 32,
+        marginTop: 12,
     },
 
     txtNotiTitle: {
@@ -92,4 +93,22 @@ export const styles = StyleSheet.create({
         color: colors.SecondTextColor, 
     },
 
+    viewGroup: {
+        width: '100%',
+        marginTop: 30,
+    },
+
+    txtGroupTitle: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: colors.PrimaryTextColor,
+        marginBottom: 10,
+    },
+
+    txtDescription: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: colors.SecondTextColor,
+        marginBottom: 15,
+    },
 })

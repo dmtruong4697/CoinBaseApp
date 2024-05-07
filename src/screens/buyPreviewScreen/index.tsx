@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigator/mainNavigator';
 import Button from '../../components/button';
 import { buyCrypto } from '../../firebase/services/cryptoService';
+import notifee, { AndroidColor } from '@notifee/react-native';
 
 interface IProps {}
 
@@ -15,8 +16,31 @@ const BuyPreviewScreen: React.FC<IProps>  = () => {
     const route = useRoute<RouteProp<RootStackParamList, 'BuyPreview'>>();
     const {order} = route.params;
 
+    async function onDisplayNotification() {
+        await notifee.requestPermission()
+    
+        const channelId = await notifee.createChannel({
+          id: 'default',
+          name: 'Default Channel',
+        });
+    
+        await notifee.displayNotification({
+          title: 'Buy Crypto Success!',
+          body: 'Main body content of the notification',
+          android: {
+            channelId,
+            pressAction: {
+              id: 'default',
+            },
+          },
+        });
+      }
+
     const handleBuyCrypto = async() => {
-        await buyCrypto(order, navigation);
+        await buyCrypto(order, navigation)
+            .then (() => {
+                onDisplayNotification();
+            });
     }
   
   return (
