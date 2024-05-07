@@ -96,14 +96,9 @@ export async function buyCrypto(
         await database()
         .ref(`/order/${order.uid}/${order.id}`)
         .set(order);
-
-        ToastAndroid.showWithGravity(
-            'Buy Crypto success!',
-            ToastAndroid.SHORT,
-            ToastAndroid.CENTER,
-          );
         
         navigation.navigate('OrderPreview', {order: order})
+        return;
     }}
     catch (error) {
       console.log(error);
