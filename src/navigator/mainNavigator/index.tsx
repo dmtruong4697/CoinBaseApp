@@ -78,7 +78,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const MainNavigator = () => {
 
   return (
-    <Stack.Navigator initialRouteName="SignIn">
+    <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen 
             name="Welcome" 
             component={WelcomeScreen}

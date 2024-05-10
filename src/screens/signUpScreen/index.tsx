@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, ImageSourcePropType, FlatList, TextInput, useWindowDimensions, KeyboardAvoidingView, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ImageSourcePropType, FlatList, TextInput, useWindowDimensions, KeyboardAvoidingView, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native'
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { styles } from './styles'
 import { ParamListBase, RouteProp, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
@@ -157,6 +157,10 @@ const SignUpScreen: React.FC<IProps>  = () => {
                 // }}
             />
         </View>
+
+        {(isLoading) && 
+            <ActivityIndicator size={'large'}/>
+        }
     </SafeAreaView>
   )
 }

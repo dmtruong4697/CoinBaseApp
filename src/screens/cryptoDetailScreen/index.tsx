@@ -83,9 +83,9 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
 
     let portfolio = {};
     const fetchData = async() => {
-        // let Data = await getCoinInfo(Number(id));
-        // const ID = id.toString();
-        // setData(Data[id]);
+        let Data = await getCoinInfo(Number(id));
+        const ID = id.toString();
+        setData(Data[id]);
 
         const wallet = await getPortfolioByCrypto(currentUser.uid, crypto);
         portfolio = wallet;
@@ -150,7 +150,7 @@ const CryptoDetailScreen: React.FC<IProps>  = () => {
 
     useEffect(() => {
         fetchData();
-        // fetchQuoteData();
+        fetchQuoteData();
         // console.log(quoteData)
     },[]);
   
