@@ -32,7 +32,7 @@ function App(): React.JSX.Element {
     });
 
     await notifee.createTriggerNotification({
-      title: 'hehehehehe!',
+      title: 'Test Local Notification!',
       body: 'Main body content of the notification',
       android: {
         channelId,
