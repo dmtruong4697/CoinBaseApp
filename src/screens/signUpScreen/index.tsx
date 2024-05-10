@@ -9,6 +9,7 @@ import InputField from '../../components/inputField';
 import { Controller, useForm } from 'react-hook-form';
 import StepIndicator from '../../components/stepIndicator';
 import { colors } from '../../constants/colors';
+import { signUp } from '../../firebase/services/authService';
 interface IProps {}
 
 const SignUpScreen: React.FC<IProps>  = () => {
@@ -23,9 +24,13 @@ const SignUpScreen: React.FC<IProps>  = () => {
         formState: { errors },
       } = useForm();
     
-      const onSubmit = (data: any)=> {
+      const [isLoading, setIsLoading] = useState(false);
+      const onSubmit = async(data: any)=> {
+        setIsLoading(true);
+        await signUp(navigation, getValues().email, getValues().password);
+        setIsLoading(false);
         console.log(getValues());
-    };
+      };
     
     const [isCheck, setIsCheck] = useState(false);
   
@@ -146,10 +151,10 @@ const SignUpScreen: React.FC<IProps>  = () => {
             <Button
                 title='Start'
                 type='default'
-                // onPress={handleSubmit(onSubmit)}
-                onPress={() => {
-                    navigation.navigate('VerifyEmail');
-                }}
+                onPress={handleSubmit(onSubmit)}
+                // onPress={() => {
+                //     navigation.navigate('VerifyEmail');
+                // }}
             />
         </View>
     </SafeAreaView>

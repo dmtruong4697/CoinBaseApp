@@ -6,6 +6,7 @@ import firebase from '@react-native-firebase/app';
 import { DispatchProp, useDispatch, useSelector } from "react-redux";
 import { Dispatch, UnknownAction } from "redux";
 import database from '@react-native-firebase/database';
+import { ToastAndroid } from "react-native";
 
 export async function signIn(
     navigation: NavigationProp<any, any>,
@@ -57,6 +58,30 @@ export async function signout(
         dispatch(signOut('ok'));
         navigation.navigate('SignIn');
       });
+      
+  }
+  catch (error) {
+    console.log(error);
+      throw error;
+  }
+}
+
+export async function signUp(
+  navigation: NavigationProp<any, any>,
+  email: string,
+  password: string,
+): Promise<any> {
+  try {
+      await auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        ToastAndroid.showWithGravity(
+          'Sign Up Success!',
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
+        navigation.navigate('SignIn');
+      })
       
   }
   catch (error) {
