@@ -10,6 +10,10 @@ import { Controller, useForm } from 'react-hook-form';
 import StepIndicator from '../../components/stepIndicator';
 import { colors } from '../../constants/colors';
 import { signUp } from '../../firebase/services/authService';
+import { useTranslation } from 'react-i18next';
+// import './i18n/i18n'; 
+import i18n from '../../i18n/i18n';
+
 interface IProps {}
 
 const SignUpScreen: React.FC<IProps>  = () => {
@@ -33,6 +37,18 @@ const SignUpScreen: React.FC<IProps>  = () => {
       };
     
     const [isCheck, setIsCheck] = useState(false);
+
+    // i18n
+    const {t} = useTranslation(); 
+  
+    const [currentLanguage,setLanguage] = useState('en'); 
+    
+    const changeLanguage = (value: string) => { 
+      i18n 
+        .changeLanguage(value) 
+        .then(() => setLanguage(value)) 
+        .catch(err => console.log(err)); 
+    }; 
   
   return (
     <SafeAreaView style={styles.viewContainer}>
@@ -131,6 +147,7 @@ const SignUpScreen: React.FC<IProps>  = () => {
             {errors.password && <Text>Password is required.</Text>}
         </View>
 
+        <Text>{t('hello')}</Text>
         <View style={styles.viewTerm}>
             <TouchableOpacity
                 style={[styles.viewCheck, {
@@ -139,6 +156,7 @@ const SignUpScreen: React.FC<IProps>  = () => {
                 }]}
                 onPress={() => {
                     setIsCheck(!isCheck);
+                    changeLanguage('vi');
                 }}
             >
                 <Image style={styles.imgCheck} source={require('../../../assets/icons/signUp/check.png')}/>
